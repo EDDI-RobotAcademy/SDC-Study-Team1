@@ -27,8 +27,8 @@ int main (void)
 
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자 입력: %d\n", atoi(keyboard_input));
-    void *board_table_ptr(void);
-    typedef void board_table_ptr
+   // void *board_table_ptr(void);
+   // typedef void board_table_ptr
     
         
     
