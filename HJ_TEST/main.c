@@ -2,11 +2,12 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "board_command_table.h"
-#include "func1/func1.h"
-#include "func2/func2.h"
-#define MAX_OUTPUT_MESSAGE          256
 
+#define MAX_OUTPUT_MESSAGE          256
+void write_board(void)
+{
+    printf("게시물 작성?\n");
+}
 int main (void)
 {
     char keyboard_input[MAX_USER_KEYBOARD_INPUT] = { 0 };
@@ -26,13 +27,8 @@ int main (void)
 
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자 입력: %d\n", atoi(keyboard_input));
-     
-     void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 2);
-     choose_menu(board_menu);
-     board_menu[atoi(keyboard_input)]();
-   
-    
-  
+   // void *board_table_ptr(void);
+   // typedef void board_table_ptr
     
         
     
