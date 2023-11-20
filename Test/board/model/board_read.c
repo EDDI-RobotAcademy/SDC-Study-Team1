@@ -1,5 +1,5 @@
 #include "board_read.h"
-#include "board/model/board.h"
+#include "board.h"
 
 #include <unistd.h>
 

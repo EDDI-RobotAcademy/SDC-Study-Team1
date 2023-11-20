@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
+//#include <sys/stat.h>
+
+#include "ui/console/user_keyboard_input.h"
+#include "file_io/how_to_make_file.h"
 
 #define BUDDY_PAGE_SIZE (1)
 
@@ -167,9 +170,9 @@ int main() {
     int choice;
     int postCount = 0;
     board posts[100]; // 최대 100개의 게시물을 저장할 수 있는 배열
-    int file_descriptor = open("board.txt", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+    int create_file_descriptor = file_open("/home/eddi/proj/SDC-Study-Team1/test/board_list/board.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
 
-    if (file_descriptor == -1) {
+    if (create_file_descriptor == -1) {
         perror("파일 열기 실패");
         exit(EXIT_FAILURE);
     }
@@ -191,22 +194,22 @@ int main() {
                 showBoardList(posts, postCount);
                 break;
             case 2:
-                addBoard(posts, &postCount, file_descriptor);
+                addBoard(posts, &postCount, create_file_descriptor);
                 break;
             case 3:
-                editBoard(posts, postCount, file_descriptor);
+                editBoard(posts, postCount, create_file_descriptor);
                 break;
             case 4:
-                deleteBoard(posts, &postCount, file_descriptor);
+                deleteBoard(posts, &postCount, create_file_descriptor);
                 break;
             case 5:
-                readSelectedBoard(posts, postCount);
+                readBoard(posts, postCount);
                 break;
         }
     } while (choice != 6);
 
     // 파일 디스크립터 닫기
-    close(file_descriptor);
+    file_close(create_file_descriptor);
 
     return 0;
 }
