@@ -14,10 +14,9 @@
 void adjust_write_contents_from_format(char *contents, test_form *format)
 {
     int unique_id_size;
-    int user_size;
-    int major_length, self_introduction_length;
+    int title_length, user_length, self_introduction_length;
 
-    sprintf(contents, "id:%d,major:%s,user:%s,introduction:%s\n", 
+    sprintf(contents, "id:%d,title:%s,user:%s,introduction:%s\n", 
         format->unique_id, format->title, format->user, format->self_introduction);
     printf("contents: %s\n", contents);
 }
@@ -26,10 +25,7 @@ bool write_format_to_file(test_form *format)
 {
     char write_contents[BUDDY_PAGE_SIZE] = { 0 };
 
-    int created_file_descriptor = file_open(
-        "/home/eddi/proj/SDC-AI-LectureNotes/"
-        "c/junghunwoo/thirteenth/created_file/format_test.txt", 
-            O_CREAT | O_RDWR | O_TRUNC, 0644);
+    int created_file_descriptor = create_file_descriptor(format->title);
 
     adjust_write_contents_from_format(write_contents, format);
 
