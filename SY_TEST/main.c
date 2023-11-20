@@ -1,47 +1,39 @@
-#include "ui/console/user_keyboard_input.h"
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "board_command_table.h"
-#include "func1/func1.h"
-#include "func2/func2.h"
-#define MAX_OUTPUT_MESSAGE          256
+#include <string.h>
 
-int main (void)
+int main()
 {
-    char keyboard_input[MAX_USER_KEYBOARD_INPUT] = { 0 };
-    char output_message[MAX_OUTPUT_MESSAGE] = {
-        "0번. 게시물 조회\n"
-        "1번. 게시물 작성\n"
-        "2번. 게시물 삭제\n"
-        "3번. 게시물 읽기\n"
-        "4번. 게시물 수정\n"
-        "5번. 프로그램 종료\n"
 
-    };
-    //char password_message[MAX_OUTPUT_MESSAGE] = { "비밀번호 입력: " };
+    char choice [10];
 
-     //get_user_keyboard_input(keyboard_input);
-     //printf("사용자 입력 데이터: %s\n", keyboard_input);
+    while (1) 
+    {
+        print_Message("===== 게시판 메뉴 =====\n");
+        print_Message("1. 리스트 출력\n");
+        print_Message("2. 게시글 조회\n");
+        print_Message("3. 게시글 수정\n");
+        print_Message("4. 게시글 삭제\n");
+        print_Message("5. 종료\n");
 
-    get_user_keyboard_input_with_message(output_message, keyboard_input);
-    printf("사용자 입력: %d\n", atoi(keyboard_input));
-     
-     void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 2);
-     choose_menu(board_menu);
-     board_menu[atoi(keyboard_input)]();
-   
-    
-  
-    
+        print_Message("\n메뉴를 선택하세요: \n");
+
+        if (strcmp(choice, "5") == 0)
+
+        {
+            print_Message("프로그램을 종료합니다.");
+            break;
+            return 0;
+        }
         
-    
-    //get_user_keyboard_hidden_input_with_message(password_message, keyboard_input);
-    //printf("실제 사용자가 입력한 값은: %s\n", keyboard_input);
-    
-    
+        get_user_keyboard_input(choice);
+
+        
+    }
+
     return 0;
 }
+
 /* 
 adapter 
 in
@@ -76,7 +68,17 @@ out
 일단 메인에서 함수포인터를 제대로 쓴건지 모르겠지만 함수포인터 미정 안되면 제어무능로
 
 
-
-
-
-*/
+board----domain----model(구조체)
+  |    |
+  |    |
+  |    |
+  |    └----adapter─────────────in
+  |            |             └──-out
+  |            |
+  |            └──---application-----service──── 게시판 출력
+  |                                          ├── 게시글 작성
+  |                                          ├── 게시글 조회
+  |                                          ├── 게시글 삭제
+  |                                          └── 게시글 수정
+  └── main.c
+*/          
