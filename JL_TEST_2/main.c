@@ -4,22 +4,21 @@
 #include <fcntl.h>
 
 
-#include "in/input_message.h"
+#include "utility/input_message.h"
 #include "file_io/file_create.h"
 #include "in/write_post.h"
 #include "domain/model/board.h"
+#include "format/make_file_from_format.h"
 
-#define MAX_OUTPUT_MESSAGE          256
+#define MAX_OUTPUT_MESSAGE      256
+#define SLAB_CACHE      256 
 
-// 
-#define SLAB_CACHE      64 
-#define SLAB_CACHE2     128
-#define SLAB_CACHE3     256
 
 void write_board(void)
 {
     printf("게시물 작성\n");
 }
+
 
 int main (void)
 {
@@ -33,88 +32,64 @@ int main (void)
         "5번. 프로그램 종료\n"
 
     };
-    // 비밀 번호는 추가 사항으로 나중에..
-    //char password_message[MAX_OUTPUT_MESSAGE] = { "비밀번호 입력: " };
 
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자가 선택한 작업: %d\n", atoi(keyboard_input));
 
-
+    /*
     get_user_keyboard_input(keyboard_input);
     printf("게시물 작성: %s\n", keyboard_input);
+    */
 
-
-   
-    // void *board_table_ptr(void);
-    // typedef void board_table_ptr
-        
-    //get_user_keyboard_hidden_input_with_message(password_message, keyboard_input);
-    //printf("실제 사용자가 입력한 값은: %s\n", keyboard_input);
     
+    // 게시판에 사용자가 글 작성
+    Board *format;
+    char title[SLAB_CACHE];
+    char writer[SLAB_CACHE];
+    char content[SLAB_CACHE];
+  
+    // 제목
+    get_user_keyboard_input(keyboard_input);
+    strcpy(title, keyboard_input);
 
+    // 작성자
+    get_user_keyboard_input(keyboard_input);
+    strcpy(writer, keyboard_input);
+
+    // 내용
+    get_user_keyboard_input(keyboard_input);
+    strcpy(content, keyboard_input);
+
+    format = create_post(unique_id, title, writer, content);
+    write_format_to_file(format);
+
+    
+    /*
     Board *format;
     int unique_id = 0;
     char title[SLAB_CACHE];
     strcpy(title, keyboard_input);
     char writer[SLAB_CACHE2] = "김똥개";
     char content[SLAB_CACHE3] = "집에 가고 싶다";
+    */
 
     // 경로는 맞춰서 수정할 것
+    /*
     int created_file_descriptor = file_open(
         "/home/eddi/proj/SDC-Study-Team1/"
         "JL_TEST_2/test_file/테스트용게시판.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
+    */
 
     // 파일 디스크립터 확인용 출력
+    /*
     printf("생성된 파일 디스크립터: %d\n", created_file_descriptor);
+    */
 
-    // 게시물에 사용자가 작성한 내용 적기
-    // 이건 그냥 get_user_keyboard_input 함수 실행 후 적은 내용이 txt 파일에 들어가기만 함
-    // 동적 할당이 아님
-    //write_post_in_file(created_file_descriptor, keyboard_input);
-
-
-    // 게시물에 사용자가 작성한 내용 적고 txt 파일에 넣음
+    /*
     format = create_post(unique_id, title, writer, content);
     write_format_to_file(format);
     file_close(created_file_descriptor);
+    */
 
     return 0;
 }
-/* 
-adapter 
-in
-조회 게시물리스트를 볼 수 있게 요청 
-작성 게시물을 입력요청
-삭제 기존의 게시물을 삭제 요구
-읽기 3번을 누르면 게시물 리스트를 띄워준 상태에서 읽고 싶은 게시물 번호를 입력한다 (돌아가기는 일단 보류)
-수정 게시물 리스트를 띄워준 상태에서 수정하고 싶은 게시물 번호를 입력
-
-서비스 어플리케이션<--- 이것도 그냥 out폴더로 치면 됩니다 정확히 못나누겠음 완벽한 이해가 안돼있기에... (out폴더로 한꺼번에)
-조회 저장돼있는 모든 게시물txt파일의 고유번호와 제목 데이터를 가지고 온다 
-작성 게시물 내용, 제목, 작성자 입력받고 txt로 저장
-삭제 선택된 게시물 삭제
-읽기 empty 없음
-수정 선택한 게시물을 열어서 수정후 저장
-
-out  
-조회 게시물 리스트 화면에 출력 (문구 출력 후 초기화면 리턴)
-작성 작성완료 (문구 출력 후 초기화면 리턴)
-삭제 삭제완료 (문구 출력 후 초기화면 리턴)
-읽기 선택한 게시물 오픈 (문구 출력 후 초기화면 리턴)
-수정 이것도 없고 (문구 출력 후 초기화면 리턴)
-
-******fix.1 - 서비스 어플리케이션, out 분할하려 하니 복잡해져서 그냥 out으로 통합******
-
-
-(문구 출력 후 초기화면 리턴)
-이거는 이제 일단 부가적인거고 오늘 goto문을 배우면 한번 해보도록하죠 일단 제 기능에 집중...
-
-비번도 일단 나중에 생각.... 남의 게시물 삭제 가능 ㅋ다른 조 염탐 ㄱ
-
-일단 메인에서 함수포인터를 제대로 쓴건지 모르겠지만 함수포인터 미정 안되면 제어무능로
-
-
-
-
-
-*/
