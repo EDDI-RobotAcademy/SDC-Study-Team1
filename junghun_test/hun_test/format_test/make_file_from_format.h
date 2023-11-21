@@ -5,7 +5,7 @@
 
 #include "form_test.h"
 
-void adjust_write_contents_from_format(char *contents, test_form *format);
+
 bool write_format_to_file(test_form *);
 
 #endif
