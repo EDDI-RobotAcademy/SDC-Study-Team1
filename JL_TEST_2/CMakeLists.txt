@@ -22,10 +22,7 @@ endif()
 enable_testing()
 
 file(GLOB C_SOURCES
-	"*.c"
-    "domain/*.c"
-    "in/*.c"
-    "out/*.c"
+	"sample/*.c"
 )
 
 file(GLOB CPP_TEST_SOURCES
@@ -53,6 +50,11 @@ add_custom_command(
 
 file(GLOB MAIN_SOURCES
     "*.c"
+    "domain/model/*.c"
+    "file_io/*.c"
+    "in/*.c"
+    "test_file/*.c"
+    "format/*.c"
 )
 
 add_executable(

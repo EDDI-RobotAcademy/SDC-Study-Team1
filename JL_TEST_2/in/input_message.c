@@ -23,7 +23,7 @@ void get_user_keyboard_input(char *keyboard_input)
 void get_user_keyboard_input_with_message(char *output_message, char *keyboard_input)
 {
     write(1, output_message, strlen(output_message));
-    //read(0, keyboard_input, MAX_USER_KEYBOARD_INPUT);
+    
     get_user_keyboard_input(keyboard_input);
 }
 
