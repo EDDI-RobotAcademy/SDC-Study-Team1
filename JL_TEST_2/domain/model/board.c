@@ -37,5 +37,6 @@ Board* create_post(int unique_id, char *title, char *writer, char *content)
     strncpy(post->content, content, content_length);
 
 
+
     return post;
 }

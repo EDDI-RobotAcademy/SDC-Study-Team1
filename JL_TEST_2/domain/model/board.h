@@ -12,6 +12,7 @@ struct _Board
     char *title;    // 제목
     char *writer;   // 작성자
     char *content;  // 내용
+    
     struct Board *next; // 다음 게시글 
 };
 
