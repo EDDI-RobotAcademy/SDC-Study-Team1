@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "board_command_table.h"
-#include "func1/func1.h"
-#include "func2/func2.h"
+
 #define MAX_OUTPUT_MESSAGE          256
 
 int main (void)
@@ -20,8 +19,6 @@ int main (void)
         "메뉴를 선택하세요. : "
     };
 
-    
-    //char password_message[MAX_OUTPUT_MESSAGE] = { "비밀번호 입력: " };
 
      //get_user_keyboard_input(keyboard_input);
      //printf("사용자 입력 데이터: %s\n", keyboard_input);
@@ -29,21 +26,16 @@ int main (void)
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자 입력: %d\n", atoi(keyboard_input));
      
-     void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 2);
-     choose_menu(board_menu);
-     board_menu[atoi(keyboard_input)]();
+    void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 2);
+    choose_menu(board_menu);
+    board_menu[atoi(keyboard_input)]();
    
     
-  
-    
-        
-    
-    //get_user_keyboard_hidden_input_with_message(password_message, keyboard_input);
-    //printf("실제 사용자가 입력한 값은: %s\n", keyboard_input);
     
     
     return 0;
 }
+
 /* 
 adapter 
 in
