@@ -21,7 +21,7 @@ int file_open(char *filename, int option, unsigned int permission)
     return file_descriptor;
 }
 
-int created_file_descriptor(char* txt_name)
+int create_file_descriptor(char* txt_name)
     {
         char address_txt[1024] = {0};
         snprintf(address_txt, sizeof(address_txt), "/home/eddi/proj/SDC-Study-Team1/junghun_test/hun_test/create_file/%s", txt_name);
