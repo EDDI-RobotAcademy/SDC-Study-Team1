@@ -8,6 +8,7 @@
 
 int file_open(char *filename, int option, unsigned int permission)
 {
+    // filename: 파일 경로, option: 파일에 대한열기 옵션, permission: 파일 접근 권한
     int fd_descriptor = open(filename, option, permission);
 
     if (fd_descriptor == ERROR)
