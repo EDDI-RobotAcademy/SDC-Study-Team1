@@ -15,6 +15,6 @@ struct _Board
     struct Board *next; // 다음 게시글 
 };
 
-Board* create_post(int unique_id, char *title, char *writer, char *content);
+Board* create_post(void);
 
 #endif
