@@ -5,7 +5,6 @@
 #include "board_command_table.h"
 #include "func1/func1.h"
 #include "func2/func2.h"
-#include "list_board.h"
 #define MAX_OUTPUT_MESSAGE          256
 
 int main (void)
@@ -28,10 +27,10 @@ int main (void)
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자 입력: %d\n", atoi(keyboard_input));
      
-     void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 6);
+     void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 2);
      choose_menu(board_menu);
      board_menu[atoi(keyboard_input)]();
-   
+     
     
   
     
