@@ -5,6 +5,6 @@
 #include <stdbool.h>
 
 void adjust_write_contents_from_format(char *, Board *);
-bool write_format_to_file(Board *);
+void write_format_to_file(Board *);
 
 #endif
