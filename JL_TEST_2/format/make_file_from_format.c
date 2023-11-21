@@ -10,7 +10,7 @@
 #define BUDDY_PAGE_SIZE             4096
 
 #define START_INDEX                 0
-/*
+
 void adjust_write_contents_from_format(char *contents, Board *format)
 {
     int unique_id_size;
@@ -20,20 +20,10 @@ void adjust_write_contents_from_format(char *contents, Board *format)
         format->unique_id, format->title, format->writer, format->content);
     printf("contents: %s\n", contents);
 }
-*/
 
-void adjust_write_contents_from_format(char *contents, Board *format)
-{
-    //int unique_id_size;
-    int title_length, writer_length, content_length;
-
-    sprintf(contents, "title:%s\n writer:%s\n content:%s\n", 
-        format->title, format->writer, format->content);
-    printf("contents: %s\n", contents);
-}
 
 // 반환문 없어서 노란줄 뜨는 중..
-bool write_format_to_file(Board *format)
+void write_format_to_file(Board *format)
 {
     char write_contents[BUDDY_PAGE_SIZE] = { 0 };
 

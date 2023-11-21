@@ -47,16 +47,20 @@ int main (void)
     char title[SLAB_CACHE];
     char writer[SLAB_CACHE];
     char content[SLAB_CACHE];
-  
+    int unique_id = 0;
+    
     // 제목
+    printf("제목을 입력하세요: \n");
     get_user_keyboard_input(keyboard_input);
     strcpy(title, keyboard_input);
 
     // 작성자
+    printf("작성자를 입력하세요: \n");
     get_user_keyboard_input(keyboard_input);
     strcpy(writer, keyboard_input);
 
     // 내용
+    printf("내용을 입력하세요: \n");
     get_user_keyboard_input(keyboard_input);
     strcpy(content, keyboard_input);
 
