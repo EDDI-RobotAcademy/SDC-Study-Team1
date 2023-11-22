@@ -24,7 +24,7 @@ Board* create_post(int unique_id, char *title, char *writer, char *content)
     int content_length = strlen(content) + 1;
 
     // 게시글 고유 번호 부여
-    post->unique_id = unique_id++;
+    post->unique_id = unique_id;
 
     // 제목, 작성자, 내용을 복사하여 저장
     post->title = (char *)malloc(sizeof(char) * title_length);
@@ -35,7 +35,6 @@ Board* create_post(int unique_id, char *title, char *writer, char *content)
 
     post->content = (char *)malloc(sizeof(char) * content_length);
     strncpy(post->content, content, content_length);
-
 
 
     return post;
