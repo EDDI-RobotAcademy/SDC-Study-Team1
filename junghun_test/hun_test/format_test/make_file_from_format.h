@@ -5,6 +5,7 @@
 
 #include "form_test.h"
 
+
 bool write_format_to_file(test_form *);
 
 #endif

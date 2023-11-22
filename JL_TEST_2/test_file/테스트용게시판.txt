@@ -1,0 +1,8 @@
+unique_id:0
+ title:축구 보고 싶다
+
+ writer:김덕배
+고 싶다
+
+ content:25일은 맨시티 VS 리버풀
+
