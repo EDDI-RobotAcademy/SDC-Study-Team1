@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILENAME_MAX    1000
+#define FILENAME_MAX        4096
 
 void delete_post(void)
 {

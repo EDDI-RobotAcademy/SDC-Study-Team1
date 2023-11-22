@@ -1,10 +1,14 @@
 #include "create_post.h"
 #include "../../../ui/console/user_keyboard_input.h"
+#include "../../../api/service/write_post.h"
+#include "../../../api/service/make_file_from_format.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+
+
 
 #define BUDDY_PAGE_SIZE     4096
 #define MAX_TEXT_LENGTH     128
@@ -12,6 +16,8 @@
 char title[MAX_TEXT_LENGTH];
 char writer[MAX_TEXT_LENGTH];
 char content[MAX_TEXT_LENGTH];
+
+
 
 // 연결 리스트의 첫 번째 게시글을 가리키는 포인터
 Board *head = NULL;
@@ -26,8 +32,6 @@ Board* create_post(void)
     get_user_keyboard_input_with_message("제목을 입력하세요: ", title);
     get_user_keyboard_input_with_message("작성자를 입력하세요: ", writer);
     get_user_keyboard_input_with_message("내용을 입력하세요: ", content);
-
-    printf("%s,%s,%s", title,writer,content);
 
     // post 라는 게시글 구조체 생성
     // 새로운 게시글을 위한 메모리를 할당
@@ -51,7 +55,15 @@ Board* create_post(void)
     post->content = (char *)malloc(sizeof(char) * content_length);
     strncpy(post->content, content, content_length);
 
-    // char filename[FILENAME_MAX];
+    
+    // 입력한 내용을 .txt 파일로 저장
+    int created_file_descriptor = 0;
+    write_post_in_file(created_file_descriptor, content);
+
+    return post;
+}
+
+ // char filename[FILENAME_MAX];
     // sprintf(filename, "/proj/TEAM_1/SDC-Study-Team1/SY_TEST/test2/create_file/post_%d.txt", post->unique_id);  // 파일명 생성
 
     // FILE *file = fopen(filename, "w");  // 파일 열기
@@ -77,11 +89,8 @@ Board* create_post(void)
 
     // // 파일에 게시글 내용 저장
     // dprintf(fd, "제목: %s", post->title);
-    // dprintf(fd, "작성자: %s", post->writer);
+    // dprintf(fd, "작성자: %s", post->writer); 
     // dprintf(fd, "내용: %s", post->content);
 
     // // 파일 닫기
     // close(fd);
-
-    return post;
-}

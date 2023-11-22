@@ -1,6 +1,11 @@
 #ifndef __BOARD_H__
 #define __BOARD_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 extern unsigned int unique_id;
 
 typedef struct _Board Board;
@@ -16,5 +21,10 @@ struct _Board
 };
 
 Board* create_post(void);
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

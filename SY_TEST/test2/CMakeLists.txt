@@ -30,6 +30,7 @@ file(GLOB C_SOURCES
 
 file(GLOB CPP_TEST_SOURCES
     "tests/*.cpp"
+    "adapter/in/create/*.c"
 )
 
 add_library(logic_lib ${C_SOURCES})

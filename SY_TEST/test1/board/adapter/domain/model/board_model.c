@@ -1,11 +1,12 @@
 #include "board_model.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
-// 연결 리스트의 첫 번째 게시글을 가리키는 포인터입니다.
-Post *head = NULL;
+/// 연결 리스트의 첫 번째 게시글을 가리키는 포인터입니다.
+Post *head = 0;
 
 // 게시글에 부여할 유니크한 ID를 저장하는 변수입니다.
 int unique_id = 0;
@@ -24,10 +25,10 @@ Post* create_post(char *title, char *content)
     post->content = strdup(content);
 
     // 다음 게시글을 가리키는 포인터를 NULL로 초기화합니다.
-    post->next = NULL;
+    post->next = 0;
 
     // 만약 첫 번째 게시글이 없다면, 새로운 게시글을 첫 번째 게시글로 설정합니다.
-    if (head == NULL) 
+    if (head == 0) 
     {
         head = post;
     } 
@@ -36,7 +37,7 @@ Post* create_post(char *title, char *content)
     {
         // 그렇지 않다면, 연결 리스트의 마지막 게시글을 찾아 새로운 게시글을 추가합니다.
         Post *last = head;
-        while (last->next != NULL) {
+        while (last->next != 0) {
             last = last->next;
         }
         last->next = post;

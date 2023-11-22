@@ -1,34 +1,36 @@
+#include "board/service/board_service.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-int main()
+// 메뉴를 출력하고 사용자로부터 선택을 입력받는 함수입니다.
+int get_menu_selection() 
 {
+    printf("1. 게시글 생성\n2. 게시글 수정\n3. 게시글 삭제\n4. 종료\n메뉴 선택: ");
 
-    char choice [10];
+    int selection;
+    scanf("%d", &selection);
+    return selection;
+}
 
-    while (1) 
-    {
-        print_Message("===== 게시판 메뉴 =====\n");
-        print_Message("1. 리스트 출력\n");
-        print_Message("2. 게시글 조회\n");
-        print_Message("3. 게시글 수정\n");
-        print_Message("4. 게시글 삭제\n");
-        print_Message("5. 종료\n");
+int main() {
+    while (1) {
+        int selection = get_menu_selection();
 
-        print_Message("\n메뉴를 선택하세요: \n");
-
-        if (strcmp(choice, "5") == 0)
-
-        {
-            print_Message("프로그램을 종료합니다.");
+        switch (selection) {
+        case 1:
+            process_post();
             break;
+        case 2:
+            modify_post();
+            break;
+        case 3:
+            delete_post();
+            break;
+        case 4:
+            printf("프로그램을 종료합니다.");
             return 0;
+        default:
+            printf("잘못된 선택입니다. 다시 선택해주세요.");
         }
-        
-        get_user_keyboard_input(choice);
-
-        
     }
 
     return 0;
