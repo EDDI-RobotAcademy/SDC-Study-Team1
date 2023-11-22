@@ -51,16 +51,16 @@ Board* create_post(void)
     post->content = (char *)malloc(sizeof(char) * content_length);
     strncpy(post->content, content, content_length);
 
-    char filename[FILENAME_MAX];
-    sprintf(filename, "/proj/TEAM_1/SDC-Study-Team1/SY_TEST/test2/create_file/post_%d.txt", post->unique_id);  // 파일명 생성
+    // char filename[FILENAME_MAX];
+    // sprintf(filename, "/proj/TEAM_1/SDC-Study-Team1/SY_TEST/test2/create_file/post_%d.txt", post->unique_id);  // 파일명 생성
 
-    FILE *file = fopen(filename, "w");  // 파일 열기
+    // FILE *file = fopen(filename, "w");  // 파일 열기
 
-    if (file == NULL) 
-    {
-        printf("파일을 열 수 없습니다.");
-        return NULL;
-    }
+    // if (file == NULL) 
+    // {
+    //     printf("파일을 열 수 없습니다.");
+    //     return NULL;
+    // }
 
     // // 저장 경로와 파일명 설정
     // char filepath[BUDDY_PAGE_SIZE];
