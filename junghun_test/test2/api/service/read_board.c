@@ -1,9 +1,7 @@
-#include "make_format_from_file.h"
-#include "make_file_from_format.h"
-#include "form_test.h"
-
-#include "../file_io/how_to_read_content.h"
-#include "../file_io/how_to_make_file.h"
+#include "../../adapter/out/read/read_content_file.h"
+#include "../../adapter/in/create/create_post.h"
+#include "read_board.h"
+#include "file_create.h"
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -36,15 +34,16 @@ int find_enter_line_for_format_count(char *buffer, int total_length)
     return count;
 }
 
-test_form **set_test_form_with_read_contents(
-    test_form **test_format_array, int object_count, char *read_contents)
+Board **set_test_form_with_read_contents(
+    Board **test_format_array, int object_count, char *read_contents)
 {
     int i;
-    int field_count = 0;
+    int field_count = 4;
     char title[32];
-    char introduction[128];
-    char user[32];
+    char content[128];
+    char writer[32];
     unsigned int unique_id;
+    int board_count = 0;
 
     int start, finish;
     bool started = false;
@@ -92,23 +91,23 @@ test_form **set_test_form_with_read_contents(
             if (field_count % 4 == 2)
             {
                 char tmp_str[32] = { 0 };
-                memset(user, 0x00, 32);
-                strncpy(user, &read_contents[start + 1], finish - start - 1);
-                printf("user = %s\n", user);
+                memset(writer, 0x00, 32);
+                strncpy(writer, &read_contents[start + 1], finish - start - 1);
+                printf("writer = %s\n", writer);
             }
 
             if (field_count % 4 == 3)
             {
                 char tmp_str[128] = { 0 };
-                memset(introduction, 0x00, 128);
-                strncpy(introduction, &read_contents[start + 1], finish - start - 1);
-                printf("itroduction: %s\n", introduction);
+                memset(content, 0x00, 128);
+                strncpy(content, &read_contents[start + 1], finish - start - 1);
+                printf("itroduction: %s\n", content);
 
-                test_format_array[field_count / 4] = init_test_form_with_id(unique_id, title, user, introduction);
+                test_format_array[board_count++] = init_test_form_with_id(unique_id, title, writer, content);
             }
 
-            // if (field_count % 4 == 0) {
-            //     test_format_array[field_count++ / 4] 
+            //if (field_count % 4 == 0) {
+            //    test_format_array[field_count++ / 4] 
             // }
 
             field_count++;
@@ -118,50 +117,50 @@ test_form **set_test_form_with_read_contents(
     return test_format_array;
 }
 
+void read_target_id_content(Board **test_format_array, int object_count, int uniqueIdToFind) {
+    
+    for (int i = 0; i < 2; i++) {
+        if (test_format_array[i]->unique_id == uniqueIdToFind) {
+            printf("게시글 번호: %d\n", test_format_array[i]->unique_id);
+            printf("제목: %s\n", test_format_array[i]->title);
+            printf("작성자: %s\n", test_format_array[i]->writer);
+            printf("내용: %s\n", test_format_array[i]->content);
+            printf("\n");
+            return; // 게시글을 찾았으므로 함수 종료
+        }
+    }
 
+    // 게시글을 찾지 못한 경우
+    printf("게시글을 찾을 수 없습니다.\n");
+}
 
-// test_form **read_file_to_format(char *filename)
-// {
-//     char read_contents[BUDDY_PAGE_SIZE] = { 0 };
-//     int object_count;
-//     int total_length;
-
-//     test_form **test_format_array;
-
-//     int created_file_descriptor = read_file_descriptor(filename);
-
-//     read_content_from_file(created_file_descriptor, read_contents);
-
-//     total_length = file_total_length(created_file_descriptor);
-//     file_close(created_file_descriptor);
-
-//     object_count = find_enter_line_for_format_count(read_contents, total_length);
-//     test_format_array = init_test_form_array(object_count);
-
-//     set_test_form_with_read_contents(test_format_array, object_count, read_contents);
-// }
-
-test_form **read_file_to_format(char *filename)
+Board **read_file_to_format(int uniqueIdToFind)
 {
     char read_contents[BUDDY_PAGE_SIZE] = { 0 };
     int object_count;
     int total_length;
 
-    test_form **test_format_array;
+    Board **test_format_array;
 
     // O_RDONLY: 읽기 전용
-    int created_file_descriptor = read_file_descriptor(filename);
+    int created_file_descriptor = read_file_descriptor();
     //read_content_from_file_and_print(created_file_descriptor, read_contents);
     read_content_from_file(created_file_descriptor, read_contents);
-    //printf("read_contents: %s\n", read_contents);
+    printf("read_contents: %s\n", read_contents);
 
     total_length = file_total_length(created_file_descriptor);
     file_close(created_file_descriptor);
 
     object_count = find_enter_line_for_format_count(read_contents, total_length);
     test_format_array = init_test_form_array(object_count);
-    //printf("object_count: %d\n", object_count);
+    printf("object_count: %d\n", object_count);
 
     test_format_array = set_test_form_with_read_contents(test_format_array, object_count, read_contents);
     printf("test_format_array: 0x%x\n", test_format_array);
+    read_target_id_content(test_format_array, object_count, uniqueIdToFind);
+
+    return test_format_array;
+
 }
+
+

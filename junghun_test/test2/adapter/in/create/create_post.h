@@ -16,5 +16,8 @@ struct _Board
 };
 
 Board* create_post(int unique_id, char *title, char *writer, char *content);
+int increment_test_form_unique_id(void);
+Board *init_test_form(char *, char *, char *);
+Board **init_test_form_array(int count);
 
 #endif
