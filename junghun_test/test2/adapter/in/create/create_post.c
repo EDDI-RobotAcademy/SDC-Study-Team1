@@ -46,7 +46,7 @@ int increment_test_form_unique_id(void)
     return test_form_unique_id++;
 }
 
-Board *init_test_form_with_id(int id, char *title, char *writer, char *content)
+Board *init_test_form_with_id(unsigned int id, char *title, char *writer, char *content)
 {
     Board *tmp_Board = (Board *)malloc(sizeof(Board));
     int title_length = strlen(title) + 1;

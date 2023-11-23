@@ -1,5 +1,6 @@
 #include "../../adapter/out/read/read_content_file.h"
 #include "../../adapter/in/create/create_post.h"
+#include "../../ui/console/user_keyboard_input.h"
 #include "read_board.h"
 #include "file_create.h"
 
@@ -25,7 +26,7 @@ int find_enter_line_for_format_count(char *buffer, int total_length)
 
     for (i = 0; i < total_length; i++)
     {
-        if (!strncmp(&buffer[i], "\\n", 1))
+        if (!strncmp(&buffer[i], "\n", 1))
         {
             count++;
         }
@@ -34,8 +35,7 @@ int find_enter_line_for_format_count(char *buffer, int total_length)
     return count;
 }
 
-Board **set_test_form_with_read_contents(
-    Board **test_format_array, int object_count, char *read_contents)
+Board **set_test_form_with_read_contents(Board **test_format_array, int object_count, char *read_contents)
 {
     int i;
     int field_count = 4;
@@ -75,7 +75,7 @@ Board **set_test_form_with_read_contents(
                 char tmp_str[32] = { 0 };
                 strncpy(tmp_str, &read_contents[start + 1], finish - start - 1);
                 unique_id = atoi(tmp_str);
-                printf("unique_id = %d\n", unique_id);
+                //printf("unique_id = %d\n", unique_id);
             }
 
             if (field_count % 4 == 1)
@@ -85,7 +85,7 @@ Board **set_test_form_with_read_contents(
                 // 전체 배열을 0 으로 초기화 시키는 작업임
                 memset(title, 0x00, 32);
                 strncpy(title, &read_contents[start + 1], finish - start - 1);
-                printf("title = %s\n", title);
+                //printf("title = %s\n", title);
             }
 
             if (field_count % 4 == 2)
@@ -93,7 +93,7 @@ Board **set_test_form_with_read_contents(
                 char tmp_str[32] = { 0 };
                 memset(writer, 0x00, 32);
                 strncpy(writer, &read_contents[start + 1], finish - start - 1);
-                printf("writer = %s\n", writer);
+                //printf("writer = %s\n", writer);
             }
 
             if (field_count % 4 == 3)
@@ -101,7 +101,7 @@ Board **set_test_form_with_read_contents(
                 char tmp_str[128] = { 0 };
                 memset(content, 0x00, 128);
                 strncpy(content, &read_contents[start + 1], finish - start - 1);
-                printf("itroduction: %s\n", content);
+                //printf("itroduction: %s\n", content);
 
                 test_format_array[board_count++] = init_test_form_with_id(unique_id, title, writer, content);
             }
@@ -119,9 +119,10 @@ Board **set_test_form_with_read_contents(
 
 void read_target_id_content(Board **test_format_array, int object_count, int uniqueIdToFind) {
     
-    for (int i = 0; i < 2; i++) {
+
+    for (int i = 0; i < object_count; i++) {
         if (test_format_array[i]->unique_id == uniqueIdToFind) {
-            printf("게시글 번호: %d\n", test_format_array[i]->unique_id);
+            printf("게시글 id: %d\n", test_format_array[i]->unique_id);
             printf("제목: %s\n", test_format_array[i]->title);
             printf("작성자: %s\n", test_format_array[i]->writer);
             printf("내용: %s\n", test_format_array[i]->content);
@@ -146,21 +147,35 @@ Board **read_file_to_format(int uniqueIdToFind)
     int created_file_descriptor = read_file_descriptor();
     //read_content_from_file_and_print(created_file_descriptor, read_contents);
     read_content_from_file(created_file_descriptor, read_contents);
-    printf("read_contents: %s\n", read_contents);
+    //printf("read_contents: %s\n", read_contents);
 
     total_length = file_total_length(created_file_descriptor);
     file_close(created_file_descriptor);
 
     object_count = find_enter_line_for_format_count(read_contents, total_length);
     test_format_array = init_test_form_array(object_count);
-    printf("object_count: %d\n", object_count);
+    //printf("object_count: %d\n", object_count);
 
     test_format_array = set_test_form_with_read_contents(test_format_array, object_count, read_contents);
-    printf("test_format_array: 0x%x\n", test_format_array);
+    //printf("test_format_array: 0x%x\n", test_format_array);
     read_target_id_content(test_format_array, object_count, uniqueIdToFind);
+    for (int i = 0; i < object_count; ++i) {
+    free(test_format_array[i]);
+    }
+    free(test_format_array);
 
     return test_format_array;
 
 }
 
+void read_board_with_target_id()
+{
+    char read_board_keyboard_input[MAX_USER_KEYBOARD_INPUT] = { 0 };
 
+    char read_board_output_message[MAX_OUTPUT_MESSAGE] = {
+        "원하는 게시물의 id를 입력해주세요.\n"
+    };
+    
+    get_user_keyboard_input_with_message(read_board_output_message, read_board_keyboard_input);
+    read_file_to_format(atoi(read_board_keyboard_input));
+}

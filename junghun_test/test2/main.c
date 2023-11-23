@@ -30,9 +30,8 @@ int main (void)
     // void (**board_menu)(void) = (void (**)(void))malloc(sizeof(void (*)(void)) * 2);
     // choose_menu(board_menu);
     // board_menu[atoi(keyboard_input)]();
-    int target_id = 0;
-    read_file_to_format(target_id);
     
+    read_board_with_target_id();
     
     return 0;
 }
