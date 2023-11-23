@@ -1,4 +1,4 @@
-#include "write_post.h"
+#include "write_post_in_file.h"
 
 #include <unistd.h>
 #include <string.h>
@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+// 파일에 쓴 내용 성공 실패 확인 
 bool write_post_in_file(int file_descriptor, char *content)
 {
     int content_length = strlen(content);

@@ -1,5 +1,5 @@
-#ifndef __WRITE_POST_H__
-#define __WRITE_POST_H__
+#ifndef __WRITE_POST_IN_FILE_H__
+#define __WRITE_POST_IN_FILE_H__
 
 #include <stdbool.h>
 
