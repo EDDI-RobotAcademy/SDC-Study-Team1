@@ -6,8 +6,8 @@ set(CMAKE_CXX_COMPILER "clang++")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -gdwarf-4")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -gdwarf-4")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -23,15 +23,11 @@ enable_testing()
 
 file(GLOB C_SOURCES
 	"sample/*.c"
-    "ui/console/*.c"
-    "adapter/in/create/*.c"
-    "adapter/in/delete/*.c"
-    "api/service/*.c"
-    "adapter/out/read/*.c"
 )
 
 file(GLOB CPP_TEST_SOURCES
     "tests/*.cpp"
+    "tests/how_to_use/*.cpp"
 )
 
 add_library(logic_lib ${C_SOURCES})
