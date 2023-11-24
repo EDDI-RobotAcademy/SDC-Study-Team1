@@ -32,7 +32,7 @@ int main (void)
 
     };
 
-    /*
+    
     // 게시판 생성 및 사용자의 작성 
     Board *format;
     char title[SLAB_CACHE]; // 제목
@@ -56,10 +56,7 @@ int main (void)
         case 1: 
             // 게시물 작성
             printf("사용자가 선택한 작업: %s\n", keyboard_input);
-            for (unsigned int i = 0; i < MAX_USER_NUMBER; i++)
-            {
-                post_write(i, format->title, format->writer, format->content, format);
-            }
+            post_write(unique_id, title, writer, content, MAX_USER_NUMBER);
             break;
         case 2: 
             // 게시물 삭제
@@ -85,10 +82,10 @@ int main (void)
     //printf("현재 전역변수 1이어야함 ->%d\n 제목 %s\n  작성자 %s\n, 내용 %s\n", test_form_unique_id,
     //data_storage[0]->title,data_storage[0]->user,data_storage[0]->content );
 
-    */
+    
 
 
-
+    /*
     //사용자가 실행할 작업 선택
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자가 선택한 작업: %d\n", atoi(keyboard_input));
@@ -102,9 +99,9 @@ int main (void)
     char content[SLAB_CACHE]; // 게시글 내용
     unsigned int unique_id[SLAB_CACHE]; //게시글 번호
     
-    
+    post_write(unique_id, title, writer, content, MAX_USER_NUMBER);
 
-    // 작성자 3명(USER_NUMBER)이라 가정하고 for문 작성해봄
+    // 작성자 3명(MAX_USER_NUMBER)이라 가정하고 for문 작성해봄
     
     for (int i = 0; i < MAX_USER_NUMBER; i++)
     {
@@ -119,7 +116,7 @@ int main (void)
         write_format_to_file(format);
         
     }
-    
+    */
    
 
     return 0;
