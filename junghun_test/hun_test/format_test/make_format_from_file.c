@@ -68,7 +68,7 @@ test_form **set_test_form_with_read_contents(
         {
             finish = i;
             started = false;
-            printf("start = %d, finish = %d\n", start, finish);
+            //printf("start = %d, finish = %d\n", start, finish);
 
             // ":" 과 "," 사이의 값이 객체에 배치해야하는 정보임
             if (field_count % 4 == 0)
@@ -153,14 +153,14 @@ test_form **read_file_to_format(char *filename)
     int created_file_descriptor = read_file_descriptor(filename);
     //read_content_from_file_and_print(created_file_descriptor, read_contents);
     read_content_from_file(created_file_descriptor, read_contents);
-    printf("read_contents: %s\n", read_contents);
+    //printf("read_contents: %s\n", read_contents);
 
     total_length = file_total_length(created_file_descriptor);
     file_close(created_file_descriptor);
 
     object_count = find_enter_line_for_format_count(read_contents, total_length);
     test_format_array = init_test_form_array(object_count);
-    printf("object_count: %d\n", object_count);
+    //printf("object_count: %d\n", object_count);
 
     test_format_array = set_test_form_with_read_contents(test_format_array, object_count, read_contents);
     printf("test_format_array: 0x%x\n", test_format_array);

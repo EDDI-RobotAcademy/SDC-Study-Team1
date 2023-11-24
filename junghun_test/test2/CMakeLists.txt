@@ -26,6 +26,8 @@ file(GLOB C_SOURCES
     "ui/console/*.c"
     "adapter/in/create/*.c"
     "adapter/in/delete/*.c"
+    "api/service/*.c"
+    "adapter/out/read/*.c"
 )
 
 file(GLOB CPP_TEST_SOURCES

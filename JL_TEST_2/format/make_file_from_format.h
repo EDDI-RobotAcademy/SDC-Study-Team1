@@ -4,7 +4,7 @@
 #include "../domain/model/board.h"
 #include <stdbool.h>
 
-void adjust_write_contents_from_format(char *, Board *);
+void write_contents_from_format(char *, Board *);
 void write_format_to_file(Board *);
 
 #endif

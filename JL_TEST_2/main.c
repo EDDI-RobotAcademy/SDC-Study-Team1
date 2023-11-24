@@ -6,18 +6,17 @@
 
 #include "utility/input_message.h"
 #include "file_io/file_create.h"
-#include "in/write_post.h"
+#include "in/write_post_in_file.h"
 #include "domain/model/board.h"
 #include "format/make_file_from_format.h"
+#include "post_write/post_write.h"
 
 #define MAX_OUTPUT_MESSAGE      256
+
 #define SLAB_CACHE      256 
 
-
-void write_board(void)
-{
-    printf("게시물 작성\n");
-}
+// user 수 임의로 지정함
+#define MAX_USER_NUMBER     3
 
 
 int main (void)
@@ -33,67 +32,95 @@ int main (void)
 
     };
 
+    /*
+    // 게시판 생성 및 사용자의 작성 
+    Board *format;
+    char title[SLAB_CACHE]; // 제목
+    char writer[SLAB_CACHE]; // 작성자
+    char content[SLAB_CACHE]; // 게시글 내용
+    unsigned int unique_id[SLAB_CACHE]; //게시글 번호
+    
+
+    int i;
+    do{
+        get_user_keyboard_input_with_message(output_message, keyboard_input);
+        i = atoi(keyboard_input);
+        
+        switch(i)
+        {
+        case 0: 
+            // 게시물 조회
+            printf("사용자가 선택한 작업: %s\n", keyboard_input);
+            //post_list(data_storage);
+            break;
+        case 1: 
+            // 게시물 작성
+            printf("사용자가 선택한 작업: %s\n", keyboard_input);
+            for (unsigned int i = 0; i < MAX_USER_NUMBER; i++)
+            {
+                post_write(i, format->title, format->writer, format->content, format);
+            }
+            break;
+        case 2: 
+            // 게시물 삭제
+            printf("2번 실행\n");
+            break;
+        case 3: 
+            // 게시물 읽기
+            printf("-----열람할 게시물 번호를 입력하시오-----\n");
+            //post_read(data_storage);
+            break;
+        case 4: 
+            // 게시물 수정
+            printf("4번 실행\n");
+            break;
+        case 5: 
+            // 프로그램 종료
+            printf("프로그램을 종료합니다\n");
+            break; 
+        default:    
+            printf("입력 오류 다시 입력하세요\n");
+        }
+    } while(i!=5);
+    //printf("현재 전역변수 1이어야함 ->%d\n 제목 %s\n  작성자 %s\n, 내용 %s\n", test_form_unique_id,
+    //data_storage[0]->title,data_storage[0]->user,data_storage[0]->content );
+
+    */
+
+
+
+    //사용자가 실행할 작업 선택
     get_user_keyboard_input_with_message(output_message, keyboard_input);
     printf("사용자가 선택한 작업: %d\n", atoi(keyboard_input));
 
-    /*
-    get_user_keyboard_input(keyboard_input);
-    printf("게시물 작성: %s\n", keyboard_input);
-    */
 
+    // 게시판 생성 및 사용자의 작성
     
-    // 게시판에 사용자가 글 작성
     Board *format;
-    char title[SLAB_CACHE];
-    char writer[SLAB_CACHE];
-    char content[SLAB_CACHE];
-    int unique_id = 0;
+    char title[SLAB_CACHE]; // 제목
+    char writer[SLAB_CACHE]; // 작성자
+    char content[SLAB_CACHE]; // 게시글 내용
+    unsigned int unique_id[SLAB_CACHE]; //게시글 번호
     
-    // 제목
-    printf("제목을 입력하세요: \n");
-    get_user_keyboard_input(keyboard_input);
-    strcpy(title, keyboard_input);
-
-    // 작성자
-    printf("작성자를 입력하세요: \n");
-    get_user_keyboard_input(keyboard_input);
-    strcpy(writer, keyboard_input);
-
-    // 내용
-    printf("내용을 입력하세요: \n");
-    get_user_keyboard_input(keyboard_input);
-    strcpy(content, keyboard_input);
-
-    format = create_post(unique_id, title, writer, content);
-    write_format_to_file(format);
-
     
-    /*
-    Board *format;
-    int unique_id = 0;
-    char title[SLAB_CACHE];
-    strcpy(title, keyboard_input);
-    char writer[SLAB_CACHE2] = "김똥개";
-    char content[SLAB_CACHE3] = "집에 가고 싶다";
-    */
 
-    // 경로는 맞춰서 수정할 것
-    /*
-    int created_file_descriptor = file_open(
-        "/home/eddi/proj/SDC-Study-Team1/"
-        "JL_TEST_2/test_file/테스트용게시판.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
-    */
+    // 작성자 3명(USER_NUMBER)이라 가정하고 for문 작성해봄
+    
+    for (int i = 0; i < MAX_USER_NUMBER; i++)
+    {
+        // 게시글의 번호 부여
+        unique_id[i] = i;
 
-    // 파일 디스크립터 확인용 출력
-    /*
-    printf("생성된 파일 디스크립터: %d\n", created_file_descriptor);
-    */
+        // 작성자가 제목, 작성자명, 게시글을 입력하는 함수
+        request_message(title, writer, content, unique_id[i]);
 
-    /*
-    format = create_post(unique_id, title, writer, content);
-    write_format_to_file(format);
-    file_close(created_file_descriptor);
-    */
+        // 입력한 내용을 txt 파일에 작성?저장? 뭐라고 해야 하지?
+        format = create_post(unique_id[i], title, writer, content);
+        write_format_to_file(format);
+        
+    }
+    
+   
 
     return 0;
 }
