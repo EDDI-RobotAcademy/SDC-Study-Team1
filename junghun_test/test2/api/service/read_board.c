@@ -173,7 +173,7 @@ void read_board_with_target_id()
     char read_board_keyboard_input[MAX_USER_KEYBOARD_INPUT] = { 0 };
 
     char read_board_output_message[MAX_OUTPUT_MESSAGE] = {
-        "원하는 게시물의 id를 입력해주세요.\n"
+        "읽고 싶은 게시물의 id를 입력해주세요.\n"
     };
     
     get_user_keyboard_input_with_message(read_board_output_message, read_board_keyboard_input);
