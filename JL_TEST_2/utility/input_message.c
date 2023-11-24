@@ -30,6 +30,8 @@ void get_user_keyboard_input_with_message(char *output_message, char *keyboard_i
     get_user_keyboard_input(keyboard_input);
 }
 
+
+
 // 제목, 작성자명, 게시글 내용을 사용자가 입력하는 함수
 void request_message(char *title, char *writer, char *content, int unique_id)
 {   
