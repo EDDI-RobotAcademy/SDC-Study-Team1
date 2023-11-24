@@ -5,7 +5,7 @@
 #include "board_command_table.h"
 #include "api/service/read_board.h"
 
-#define MAX_OUTPUT_MESSAGE          256
+
 
 int main (void)
 {
