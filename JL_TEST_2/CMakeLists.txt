@@ -56,6 +56,7 @@ file(GLOB MAIN_SOURCES
     "test_file/*.c"
     "format/*.c"
     "utility/*.c"
+    "post_write/*.c"
 )
 
 add_executable(

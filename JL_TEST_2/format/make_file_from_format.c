@@ -24,7 +24,6 @@ void write_contents_from_format(char *contents, Board *format)
 }
 
 
-// 반환문 없어서 노란줄 뜨는 중..
 // txt 파일에 사용자가 입력한 내용을 적는 함수
 void write_format_to_file(Board *format)
 {
