@@ -23,14 +23,10 @@ enable_testing()
 
 file(GLOB C_SOURCES
 	"sample/*.c"
-    "ui/console/*.c"
-    "adapter/in/create/*.c"
-    "adapter/in/delete/*.c"
 )
 
 file(GLOB CPP_TEST_SOURCES
     "tests/*.cpp"
-    "adapter/in/create/*.c"
 )
 
 add_library(logic_lib ${C_SOURCES})
@@ -54,6 +50,14 @@ add_custom_command(
 
 file(GLOB MAIN_SOURCES
     "*.c"
+    "domain/model/*.c"
+    "file_io/*.c"
+    "in/*.c"
+    "test_file/*.c"
+    "format/*.c"
+    "utility/*.c"
+    "post_write/*.c"
+    "out/*.c"
 )
 
 add_executable(

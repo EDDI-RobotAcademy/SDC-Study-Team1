@@ -23,14 +23,10 @@ enable_testing()
 
 file(GLOB C_SOURCES
 	"sample/*.c"
-    "ui/console/*.c"
-    "adapter/in/create/*.c"
-    "adapter/in/delete/*.c"
 )
 
 file(GLOB CPP_TEST_SOURCES
     "tests/*.cpp"
-    "adapter/in/create/*.c"
 )
 
 add_library(logic_lib ${C_SOURCES})

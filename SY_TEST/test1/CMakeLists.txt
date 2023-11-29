@@ -23,13 +23,16 @@ enable_testing()
 
 file(GLOB C_SOURCES
 	"sample/*.c"
-    "adaptor/in/*.c"
-    "adaptor/out/*.c"
+    "adapter/in/*.c"
+    "adapter/out/*.c"
+    "adapter/domain/model/*.c"
+    "service/*.c"
+    "/*.c"
+
 )
 
 file(GLOB CPP_TEST_SOURCES
     "tests/*.cpp"
-    "adaptor/in/*.c"
 )
 
 add_library(logic_lib ${C_SOURCES})

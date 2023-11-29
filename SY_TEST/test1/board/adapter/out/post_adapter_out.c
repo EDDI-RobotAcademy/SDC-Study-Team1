@@ -6,7 +6,7 @@
 void print_post(Post *post)
 {
     // post가 NULL인 경우, 즉 게시글이 없는 경우에는 메시지를 출력하고 함수를 종료합니다.
-    if (post == NULL) 
+    if (post == 0) 
     {
         printf("게시글이 없습니다.");
         return;

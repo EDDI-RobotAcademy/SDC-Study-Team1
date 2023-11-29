@@ -1,11 +1,6 @@
 #ifndef __BOARD_H__
 #define __BOARD_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 extern unsigned int unique_id;
 
 typedef struct _Board Board;
@@ -17,14 +12,10 @@ struct _Board
     char *title;    // 제목
     char *writer;   // 작성자
     char *content;  // 내용
+    
     struct Board *next; // 다음 게시글 
 };
 
-Board* create_post(void);
-
-#ifdef __cplusplus
-}
-#endif
-
+Board* create_post(int unique_id, char *title, char *writer, char *content);
 
 #endif
